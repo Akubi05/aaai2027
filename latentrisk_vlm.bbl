@@ -1,0 +1,168 @@
+\begin{thebibliography}{23}
+\providecommand{\natexlab}[1]{#1}
+
+\bibitem[{Agarwal et~al.(2021)Agarwal, Krueger, Clark, Radford, Kim, and
+  Brundage}]{agarwal2021evaluating}
+Agarwal, S.; Krueger, G.; Clark, J.; Radford, A.; Kim, J.~W.; and Brundage, M.
+  2021.
+\newblock Evaluating CLIP: Towards Characterization of Broader Capabilities and
+  Downstream Implications.
+\newblock \emph{arXiv preprint arXiv:2108.02818}.
+
+\bibitem[{Berg et~al.(2022)Berg, Hall, Bhalgat, Kirk, Shtedritski, and
+  Bain}]{berg2022prompt}
+Berg, H.; Hall, S.; Bhalgat, Y.; Kirk, H.; Shtedritski, A.; and Bain, M. 2022.
+\newblock A Prompt Array Keeps the Bias Away: Debiasing Vision-Language Models
+  with Adversarial Learning.
+\newblock In \emph{Proceedings of the 2nd Conference of the Asia-Pacific
+  Chapter of the Association for Computational Linguistics and the 12th
+  International Joint Conference on Natural Language Processing}, 806--822.
+
+\bibitem[{Chuang et~al.(2023)Chuang, Jampani, Li, Torralba, and
+  Jegelka}]{chuang2023debiasing}
+Chuang, C.-Y.; Jampani, V.; Li, Y.; Torralba, A.; and Jegelka, S. 2023.
+\newblock Debiasing Vision-Language Models via Biased Prompts.
+\newblock \emph{arXiv preprint arXiv:2302.00070}.
+
+\bibitem[{Creager, Jacobsen, and Zemel(2021)}]{creager2021eiil}
+Creager, E.; Jacobsen, J.-H.; and Zemel, R. 2021.
+\newblock Environment Inference for Invariant Learning.
+\newblock In \emph{International Conference on Machine Learning}, 2189--2200.
+
+\bibitem[{Gerych et~al.(2024)Gerych, Zhang, Hamidieh, Pan, Sharma, Hartvigsen,
+  and Ghassemi}]{gerych2024bendvlm}
+Gerych, W.; Zhang, H.; Hamidieh, K.; Pan, E.; Sharma, M.; Hartvigsen, T.; and
+  Ghassemi, M. 2024.
+\newblock BEND-VLM: Test-Time Debiasing of Vision-Language Embeddings.
+\newblock In \emph{Advances in Neural Information Processing Systems}.
+
+\bibitem[{Hall et~al.(2023)Hall, Gustafson, Adcock, Misra, and
+  Ross}]{hall2023gender}
+Hall, M.; Gustafson, L.; Adcock, A.; Misra, I.; and Ross, C. 2023.
+\newblock Vision-Language Models Performing Zero-Shot Tasks Exhibit Disparities
+  Between Gender Groups.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, 2778--2785.
+
+\bibitem[{Hamidieh et~al.(2024)Hamidieh, Zhang, Gerych, Hartvigsen, and
+  Ghassemi}]{hamidieh2024implicit}
+Hamidieh, K.; Zhang, H.; Gerych, W.; Hartvigsen, T.; and Ghassemi, M. 2024.
+\newblock Identifying Implicit Social Biases in Vision-Language Models.
+\newblock In \emph{Proceedings of the AAAI/ACM Conference on AI, Ethics, and
+  Society}, 547--561.
+
+\bibitem[{Hirota et~al.(2025)Hirota, Chen, Wang, Nakashima, Wang, and
+  Hachiuma}]{hirota2025saner}
+Hirota, Y.; Chen, M.-H.; Wang, C.-Y.; Nakashima, Y.; Wang, Y.-C.~F.; and
+  Hachiuma, R. 2025.
+\newblock SANER: Annotation-Free Societal Attribute Neutralizer for Debiasing
+  CLIP.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Jung, Jang, and Wang(2024)}]{jung2024unified}
+Jung, H.; Jang, T.; and Wang, X. 2024.
+\newblock A Unified Debiasing Approach for Vision-Language Models across
+  Modalities and Tasks.
+\newblock In \emph{Advances in Neural Information Processing Systems}.
+
+\bibitem[{Karkkainen and Joo(2021)}]{karkkainen2021fairface}
+Karkkainen, K.; and Joo, J. 2021.
+\newblock FairFace: Face Attribute Dataset for Balanced Race, Gender, and Age
+  for Bias Measurement and Mitigation.
+\newblock In \emph{Proceedings of the IEEE/CVF Winter Conference on
+  Applications of Computer Vision}, 1548--1558.
+
+\bibitem[{Karpathy and Fei-Fei(2015)}]{karpathy2015deep}
+Karpathy, A.; and Fei-Fei, L. 2015.
+\newblock Deep Visual-Semantic Alignments for Generating Image Descriptions.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition}, 3128--3137.
+
+\bibitem[{Kirichenko, Izmailov, and Wilson(2023)}]{kirichenko2023dfr}
+Kirichenko, P.; Izmailov, P.; and Wilson, A.~G. 2023.
+\newblock Last Layer Re-Training Is Sufficient for Robustness to Spurious
+  Correlations.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Liu et~al.(2021)Liu, Haghgoo, Chen, Raghunathan, Koh, Sagawa, Liang,
+  and Finn}]{liu2021jtt}
+Liu, E.~Z.; Haghgoo, B.; Chen, A.~S.; Raghunathan, A.; Koh, P.~W.; Sagawa, S.;
+  Liang, P.; and Finn, C. 2021.
+\newblock Just Train Twice: Improving Group Robustness without Training Group
+  Information.
+\newblock In \emph{International Conference on Machine Learning}, 6781--6792.
+
+\bibitem[{Liu et~al.(2015)Liu, Luo, Wang, and Tang}]{liu2015faceattributes}
+Liu, Z.; Luo, P.; Wang, X.; and Tang, X. 2015.
+\newblock Deep Learning Face Attributes in the Wild.
+\newblock In \emph{Proceedings of the IEEE International Conference on Computer
+  Vision}, 3730--3738.
+
+\bibitem[{Qiu et~al.(2023)Qiu, Potapczynski, Izmailov, and Wilson}]{qiu2023afr}
+Qiu, S.; Potapczynski, A.; Izmailov, P.; and Wilson, A.~G. 2023.
+\newblock Simple and Fast Group Robustness by Automatic Feature Reweighting.
+\newblock \emph{arXiv preprint arXiv:2306.11074}.
+
+\bibitem[{Radford et~al.(2021)Radford, Kim, Hallacy, Ramesh, Goh, Agarwal,
+  Sastry, Askell, Mishkin, Clark et~al.}]{radford2021clip}
+Radford, A.; Kim, J.~W.; Hallacy, C.; Ramesh, A.; Goh, G.; Agarwal, S.; Sastry,
+  G.; Askell, A.; Mishkin, P.; Clark, J.; et~al. 2021.
+\newblock Learning Transferable Visual Models from Natural Language
+  Supervision.
+\newblock In \emph{International Conference on Machine Learning}, 8748--8763.
+
+\bibitem[{Ravfogel et~al.(2020)Ravfogel, Elazar, Gonen, Twiton, and
+  Goldberg}]{ravfogel2020inlp}
+Ravfogel, S.; Elazar, Y.; Gonen, H.; Twiton, M.; and Goldberg, Y. 2020.
+\newblock Null It Out: Guarding Protected Attributes by Iterative Nullspace
+  Projection.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, 7237--7256.
+
+\bibitem[{Sagawa et~al.(2020)Sagawa, Koh, Hashimoto, and
+  Liang}]{sagawa2020groupdro}
+Sagawa, S.; Koh, P.~W.; Hashimoto, T.~B.; and Liang, P. 2020.
+\newblock Distributionally Robust Neural Networks for Group Shifts: On the
+  Importance of Regularization for Worst-Case Generalization.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{You et~al.(2024)You, Min, Dai, Sekhon, Staib, and
+  Duncan}]{you2024calibrating}
+You, C.; Min, Y.; Dai, W.; Sekhon, J.~S.; Staib, L.; and Duncan, J.~S. 2024.
+\newblock Calibrating Multi-modal Representations: A Pursuit of Group
+  Robustness without Annotations.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}.
+
+\bibitem[{Young et~al.(2014)Young, Lai, Hodosh, and
+  Hockenmaier}]{young2014image}
+Young, P.; Lai, A.; Hodosh, M.; and Hockenmaier, J. 2014.
+\newblock From Image Descriptions to Visual Denotations: New Similarity Metrics
+  for Semantic Inference over Event Descriptions.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  2: 67--78.
+
+\bibitem[{Zhang et~al.(2022)Zhang, Sohoni, Zhang, Finn, and
+  R{\'e}}]{zhang2022correct}
+Zhang, M.; Sohoni, N.~S.; Zhang, H.~R.; Finn, C.; and R{\'e}, C. 2022.
+\newblock Correct-N-Contrast: A Contrastive Approach for Improving Robustness
+  to Spurious Correlations.
+\newblock In \emph{International Conference on Machine Learning}.
+
+\bibitem[{Zhao et~al.(2026)Zhao, Li, Shen, Qiu, Xu, Chen, and
+  Chen}]{zhao2026subspace}
+Zhao, D.; Li, W.; Shen, Z.; Qiu, Y.; Xu, B.; Chen, H.; and Chen, Y. 2026.
+\newblock Bias Is a Subspace, Not a Coordinate: A Geometric Rethinking of
+  Post-hoc Debiasing in Vision-Language Models.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}.
+
+\bibitem[{Zhou, Lai, and Jiang(2022)}]{zhou2022vlstereoset}
+Zhou, K.; Lai, E.; and Jiang, J. 2022.
+\newblock VLStereoSet: A Study of Stereotypical Bias in Pre-trained
+  Vision-Language Models.
+\newblock In \emph{Proceedings of the 2nd Conference of the Asia-Pacific
+  Chapter of the Association for Computational Linguistics and the 12th
+  International Joint Conference on Natural Language Processing}, 527--538.
+
+\end{thebibliography}

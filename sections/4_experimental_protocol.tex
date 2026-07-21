@@ -1,0 +1,21 @@
+\section{Experimental Protocol}
+\paragraph{Backbone and reporting.}
+All experiments use 768-dimensional, normalized embeddings from the Transformers CLIP ViT-L/14 implementation; both encoders are frozen. We report one deterministic run for each configuration. Results are measured adaptations to this common backbone, not numbers copied from the baseline papers.
+
+\paragraph{Classification datasets.}
+Waterbirds \citep{sagawa2020groupdro} uses the official validation split (1,199 images) for risk discovery and parameter selection and the test split (5,794 images) for evaluation. Fixed prompts are ``a photo of a landbird'' and ``a photo of a waterbird.'' Groups cross bird type with place. CelebA \citep{liu2015faceattributes} uses Blond Hair as the task and Male as the evaluation attribute. Its validation split (19,867 images) calibrates \textsc{LatentRisk-VLM}; its training split is available to fitted baselines; and its test split (19,962 images) is evaluated once. Prompts describe a person with or without blond hair.
+
+\paragraph{Retrieval datasets.}
+FairFace \citep{karkkainen2021fairface} supplies a 10,954-image validation gallery and the 25 gender-stereotype queries released with BEND-VLM. Its 86,744-image training split is used only as the gender-labeled reference bank for BEND-VLM. We report text-to-image retrieval on the Flickr30K \citep{young2014image} Karpathy test split \citep{karpathy2015deep}: 5,000 captions and 1,000 images. The 1,014-image validation split fits the LatentRisk retrieval editor. SANER is trained for five epochs on 124,026 person-related caption pairs from 27,576 disjoint Flickr30K training images.
+
+\paragraph{Supervision accounting.}
+We separate three classification settings. \emph{No example labels} includes frozen CLIP and prompt ensembling. \emph{Task labels only} includes ERM, JTT-style calibration, and the primary \textsc{LatentRisk-VLM} variants. \emph{Attribute-supervised or selected} includes any method that uses $a$ for adaptation, references, checkpoint choice, or validation-WGA selection: SPD, BEND-VLM, CFR, CnC, GIC, AFR, and our attribute oracle. This conservative accounting prevents validation access to $a$ from being presented as group-label-free.
+
+\paragraph{Baselines.}
+Classification evaluates frozen CLIP, prompt ensembling, ERM, JTT \citep{liu2021jtt}, AFR \citep{qiu2023afr}, CnC \citep{zhang2022correct}, BEND-VLM \citep{gerych2024bendvlm}, SPD \citep{zhao2026subspace}, CFR \citep{you2024calibrating}, and a GIC adaptation. Retrieval evaluates frozen CLIP, projection prompts \citep{chuang2023debiasing}, BEND-VLM, SANER \citep{hirota2025saner}, and \textsc{LatentRisk-VLM}. Where a reference method originally trains a different backbone, we retain its central objective and selection rule but operate on CLIP ViT-L/14 features or lightweight adapters. This creates a controlled frozen-backbone comparison, not an exact reproduction of each paper's original setting.
+
+\paragraph{Hyperparameters.}
+Classification uses $\tau=1$, $\eta=0.5$, full projection, and $\beta=0.5$. The measured rank-1 configuration uses mean contrast on Waterbirds and one logistic probe on CelebA; rank four uses iterative probes with $C=1$ and a 0.55 training-accuracy stopping threshold. Waterbirds searches 101 values of $\lambda\in[0,5]$ and 61 intercepts in $[-0.03,0.03]$; CelebA searches 51 values in $[0.05,0.30]$ over the same intercept grid. Retrieval searches 61 values of $\lambda\in[0,0.3]$ and selects $0.1$. The Waterbirds ablation changes one component at a time under task-label-only macro-accuracy selection.
+
+\paragraph{Metrics.}
+Classification reports average accuracy and WGA over the four $(y,a)$ groups. We also discuss their difference as the average--worst gap. Retrieval reports text-to-image Recall@10 and mean gender MaxSkew@100 over the 25 FairFace queries. MaxSkew compares retrieved gender proportions with a uniform target; lower is better. Group attributes are accessed only after prediction except in rows explicitly marked attribute-supervised.

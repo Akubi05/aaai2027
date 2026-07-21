@@ -1,0 +1,15 @@
+\section{Discussion and Limitations}
+\paragraph{Failure--group alignment is the key assumption.}
+The method never identifies a group as such. It identifies representation variation associated with low margins within a class. Worst-group performance improves only when that variation overlaps the factor defining the worst group and can be removed without erasing class evidence. Waterbirds satisfies this condition strongly enough for rank 1; CelebA does not under task-only selection. Accordingly, \textsc{LatentRisk-VLM} should be described as latent-risk editing, not unsupervised demographic debiasing.
+
+\paragraph{Discovery and selection are distinct.}
+The CelebA oracle result is informative precisely because it is not a primary result. Group labels are absent from subspace discovery in both rows, yet changing only the validation objective produces a 30.0-point WGA difference. This shows that eliminating group labels from representation discovery does not eliminate the need for a deployment-relevant selection signal. Future work should target label-free robust selection, for example through stability across environments or tail-risk criteria, rather than assuming average accuracy will choose a fair edit.
+
+\paragraph{Attribute supervision remains powerful.}
+CnC outperforms our CelebA oracle under attribute-labeled validation. The appropriate comparison therefore depends on what is known at adaptation time. Latent-risk editing addresses an unnamed nuisance setting; it should not be presented as a replacement when reliable validation groups are available.
+
+\paragraph{Experimental limitations.}
+All results use one CLIP backbone and one deterministic run, so we cannot claim robustness across architectures or quantify seed variation. The classification datasets are binary, and the retrieval audit reduces gender to the binary labels supplied by FairFace and uses only 25 stereotype queries. The measured rank-1 estimator differs across classification datasets (mean contrast on Waterbirds and a logistic probe on CelebA), so their difference is not a fully controlled estimator comparison. Several baselines are adaptations to frozen CLIP features rather than exact reproductions in their original architectures and data regimes. The same validation split is used for risk discovery and parameter selection, which can favor calibration-specific structure. Finally, a predictive direction is correlational: these experiments do not establish that it causally generates errors or that editing it is safe under unmeasured shifts.
+
+\paragraph{Ethical use.}
+An attribute-free method can still worsen a protected group, as the CelebA result demonstrates. Aggregate accuracy must not be used to certify fairness, and post-hoc subgroup audits remain necessary whenever they are appropriate and lawful. The method should not be deployed to remove demographic information indiscriminately or to infer sensitive attributes. Its appropriate role is as an auditable representation intervention whose group consequences are measured explicitly.

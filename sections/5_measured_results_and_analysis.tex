@@ -1,0 +1,94 @@
+\section{Measured Results and Analysis}
+\subsection{Classification}
+\begin{table*}[t]
+\centering
+\caption{Classification with frozen CLIP ViT-L/14 encoders, grouped by supervision. WGA, Avg., and Gap are worst-group accuracy, average accuracy, and their difference (percentage points). Attribute use for validation selection counts as attribute supervision.}
+\label{tab:classification}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llccc ccc@{}}
+\toprule
+& & \multicolumn{3}{c}{Waterbirds} & \multicolumn{3}{c}{CelebA} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+Supervision & Method & WGA & Avg. & Gap & WGA & Avg. & Gap \\
+\midrule
+\multirow{2}{*}{No example labels}
+ & Frozen CLIP & 33.6 & 83.7 & 50.1 & 71.5 & 78.2 & 6.7 \\
+ & Prompt ensemble & 41.1 & 83.8 & 42.7 & 65.0 & 77.2 & 12.1 \\
+\midrule
+\multirow{4}{*}{Task labels only}
+ & ERM & 29.4 & \textbf{86.6} & 57.2 & 16.1 & \textbf{94.3} & 78.2 \\
+ & JTT-style calibration & 36.1 & 71.5 & 35.3 & 31.1 & 84.5 & 53.4 \\
+ & \textsc{LatentRisk-VLM} (rank 1) & 60.5 & 78.4 & 17.9 & 54.4 & 91.7 & 37.3 \\
+ & \textsc{LatentRisk-VLM} (rank 4) & 54.3 & 76.3 & 21.9 & 52.2 & 91.6 & 39.4 \\
+\midrule
+\multirow{7}{*}{Attribute-supervised/selected}
+ & SPD (oracle attr.) & 22.7 & 77.2 & 54.4 & 67.7 & 77.8 & 10.2 \\
+ & BEND-VLM & 31.0 & 81.2 & 50.2 & 58.6 & 73.5 & 14.9 \\
+ & CFR & 47.7 & 74.4 & 26.7 & 9.7 & 39.0 & 29.3 \\
+ & CnC & 32.9 & 83.8 & 50.9 & \textbf{85.3} & 87.5 & \textbf{2.3} \\
+ & GIC-Cy + Subsample & 58.7 & 78.8 & 20.1 & 28.3 & 90.6 & 62.3 \\
+ & AFR & 61.8 & 80.2 & 18.3 & 70.6 & 88.2 & 17.7 \\
+ & \textsc{LatentRisk-VLM} (attr.-oracle selection) & 64.5 & 80.1 & 15.6 & 82.2 & 85.7 & 3.5 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+Table~\ref{tab:classification} reports the measured classification results. On Waterbirds, rank-1 \textsc{LatentRisk-VLM} is strongest among task-label-only methods at 60.5 WGA, improving frozen CLIP by 26.9 points while reducing average accuracy by 5.3 points. Among attribute-supervised or attribute-selected methods, our oracle reaches 64.5 WGA and AFR reaches 61.8. Thus the Waterbirds result supports failure-derived editing when the nuisance is unnamed, while exposing an explicit robustness--utility tradeoff.
+
+CelebA reverses the primary result. Rank-1 editing raises average accuracy from 78.2 to 91.7 but lowers WGA from 71.5 to 54.4; rank four reaches 52.2 WGA. Changing only the rank-4 selection objective from validation accuracy to validation WGA raises test WGA by 30.0 points, from 52.2 to 82.2, while lowering average accuracy to 85.7. This oracle does not establish attribute-free robustness: it uses Male during selection and remains below the 85.3 WGA of attribute-selected CnC. The result instead isolates selection as a bottleneck after risk-subspace discovery.
+
+\subsection{Retrieval Skew under Demographic Audit}
+\begin{table}[t]
+\centering
+\caption{Measured retrieval with frozen CLIP ViT-L/14. MS@100 is mean gender MaxSkew@100 over 25 FairFace stereotype queries (lower is better). Flickr30K reports text-to-image Recall@10 on the Karpathy 1K test split (higher is better).}
+\label{tab:retrieval}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcc@{}}
+\toprule
+Method & MS@100 $\downarrow$ & R@10 $\uparrow$ \\
+\midrule
+Frozen CLIP & 0.355 & 92.2 \\
+Projection prompts & 0.326 & \textbf{92.3} \\
+BEND-VLM & \textbf{0.141} & 91.6 \\
+SANER & 0.202 & 85.2 \\
+\textsc{LatentRisk-VLM} & 0.323 & 88.2 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+Table~\ref{tab:retrieval} shows that \textsc{LatentRisk-VLM} reduces FairFace MaxSkew from 0.355 to 0.323 while Flickr30K R@10 falls by 4.0 points. Projection prompts obtain a similar skew reduction without a utility loss. BEND-VLM obtains the lowest skew using gender-labeled FairFace training references. SANER uses predefined gender terms but no per-example attribute labels; it reduces skew further than \textsc{LatentRisk-VLM} while losing more retrieval utility. This binary-gender, 25-query audit does not establish general demographic debiasing.
+
+\subsection{Ablation Study}
+\begin{table}[t]
+\centering
+\caption{Waterbirds ablation with frozen CLIP ViT-L/14. Columns $y$ and $a$ indicate task- and attribute-label use. The last row is not a primary result.}
+\label{tab:ablation}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccc@{}}
+\toprule
+Variant & $y$ & $a$ & Avg. & WGA \\
+\midrule
+Frozen CLIP & N & N & 83.7 & 33.6 \\
+SPD (oracle attr.) & N & Y & 77.2 & 22.7 \\
+\midrule
+Single mean-contrast direction & Y & N & 78.4 & 60.5 \\
+No semantic residualization & Y & N & 66.6 & 37.4 \\
+No geometric suppression & Y & N & 77.0 & 57.1 \\
+No risk-score penalty & Y & N & 76.3 & 54.3 \\
+No neutral reinjection & Y & N & 76.3 & 54.4 \\
+Full rank-4 editor & Y & N & 76.3 & 54.3 \\
+\midrule
+Rank 4 + attr.-oracle selection & Y & Y & \textbf{80.1} & \textbf{64.5} \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+Table~\ref{tab:ablation} shows that semantic residualization is necessary on Waterbirds: removing it lowers average accuracy from 76.3 to 66.6 and WGA from 54.3 to 37.4. Other components are not uniformly beneficial. Removing geometric suppression improves WGA from 54.3 to 57.1, and removing reinjection changes WGA by only 0.1 point. Validation macro accuracy selects $\lambda=0$ for the full rank-4 editor, making it identical to the no-risk-penalty row. Most importantly, mean contrast outperforms rank four by 2.1 average-accuracy and 6.2 WGA points. The evidence supports a simple direction on Waterbirds, not a general benefit from increasing rank.
+
+\subsection{Risk Separability Is Insufficient}
+On the calibration split, the Waterbirds mean-contrast directions separate risk labels with AUCs of 0.977 and 0.932 for landbirds and waterbirds. The CelebA rank-1 probes reach 0.989 and 0.981 for non-blond and blond classes. Yet the edits have opposite WGA effects. These are in-sample diagnostics, not generalization estimates, but they establish an important negative result: making failure linearly separable does not show that the direction corresponds to a hidden group or that removing it will improve group robustness.
