@@ -102,8 +102,9 @@ Tables~\ref{tab:metashift-prediction} and~\ref{tab:metashift-results} close the 
 \centering
 \caption{Post-feature adaptation cost on Waterbirds with cached frozen CLIP features. Feature extraction is excluded from adaptation time. Values are mean $\pm$ standard deviation over three seeds when available. CnC-Frozen is measured using the budget-aware cached-feature adapter from the attribute-label sweep, not copied from the single Table~\ref{tab:classification} configuration.}
 \label{tab:adaptation-cost}
-\scriptsize
-\resizebox{\textwidth}{!}{\input{tables/adaptation_cost_compact_table}}
+\small
+\setlength{\tabcolsep}{4.0pt}
+\input{tables/adaptation_cost_compact_table}
 \end{table*}
 
 The extension also illustrates the cost profile of the method. Changing the backbone requires one frozen feature-extraction pass; all subsequent risk discovery, candidate scoring, diagnostics, and table generation operate on cached embeddings. The SigLIP embedding caches are 39 MB for Waterbirds, 218 MB for CelebA, and 2.5 MB for the MetaShift-style subset. Once cached, feature loading for method runs takes seconds: 2.9--3.0 seconds for Waterbirds, 16.3--16.4 seconds for CelebA, and 0.34 seconds for MetaShift. The editing/search/evaluation stage takes 9.4--9.5 seconds on Waterbirds, 95--101 seconds on CelebA, and 40.7 seconds on MetaShift under the reported grids. These timings support the intended low-cost interpretation for the proposed editor, but they should not be used to claim that CnC-Frozen or DFR-Frozen retrain a full vision backbone in our codebase. The revised efficiency analysis reports end-to-end feature extraction separately from post-feature adaptation and reads repeated-run wall-clock and memory measurements from run artifacts before any paper table is filled.

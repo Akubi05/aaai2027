@@ -50,22 +50,26 @@ CelebA remains selection-sensitive. Rank-1 editing raises average accuracy from 
 \label{fig:attribute-budget}
 \end{figure}
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{Waterbirds WGA under an attribute-label budget. Values are mean $\pm$ standard deviation over three sampled budgets/seeds. LatentRisk-VLM-UL uses no attribute labels, so the result is constant across budgets. CnC-Frozen is rerun with a budget-aware calibration selector on cached CLIP features; it is therefore a budget-sweep adaptation result rather than a copied Table~\ref{tab:classification} entry.}
+\caption{Waterbirds WGA under an attribute-label budget. Values are mean $\pm$ standard deviation over three sampled budgets/seeds. LatentRisk-VLM-UL uses no attribute labels, so the result is constant across budgets.}
 \label{tab:attribute-budget}
-\footnotesize
-\resizebox{\textwidth}{!}{\input{tables/attribute_budget_wga_table}}
-\end{table*}
+\scriptsize
+\setlength{\tabcolsep}{2.2pt}
+\resizebox{\columnwidth}{!}{\input{tables/attribute_budget_wga_table}}
+\end{table}
 
-Figure~\ref{fig:attribute-budget} and Table~\ref{tab:attribute-budget} show the intended operating-regime distinction. At zero attribute labels, attribute-supervised methods are not applicable, while LatentRisk-VLM-UL reaches 64.1 WGA with task labels and failure signals only. Once attribute labels are available, DFR-Frozen is substantially stronger: it reaches 78.9 WGA with 100 sampled attribute labels, 88.1 with 500, and 90.2 with the full validation attribute set. The budget-aware CnC-Frozen adapter does not improve over frozen CLIP in this rerun, staying at 33.6 WGA across nonzero budgets, so we do not copy its stronger single Table~\ref{tab:classification} configuration into the budget curve. This is not a failure of the comparison protocol; it is the point of the budget experiment. Explicit attribute labels remain highly valuable when available, and LatentRisk-VLM trades that supervised robustness for a zero-attribute-label operating point.
+Figure~\ref{fig:attribute-budget} and Table~\ref{tab:attribute-budget} show the intended operating-regime distinction. At zero attribute labels, attribute-supervised methods are not applicable, while LatentRisk-VLM-UL reaches 64.1 WGA with task labels and failure signals only. Once attribute labels are available, DFR-Frozen is substantially stronger: it reaches 78.9 WGA with 100 sampled attribute labels, 88.1 with 500, and 90.2 with the full validation attribute set. This is not a failure of the comparison protocol; it is the point of the budget experiment. Explicit attribute labels remain highly valuable when available, and LatentRisk-VLM trades that supervised robustness for a zero-attribute-label operating point.
+
+The CnC-Frozen budget curve needs a separate reading. It is a real rerun of a budget-aware cached-feature adapter, not a copied Table~\ref{tab:classification} entry, but it remains at 33.6 WGA across all nonzero budgets. The run artifacts show that validation-WGA selection chose epoch 0 in every nonzero-budget seed. Thus the selected encoder/head is effectively the identity CLIP feature map with a text-initialized classifier, giving the same worst-group behavior as frozen CLIP. The pseudo-slicing signal is also weak in this setting: KMeans assignment accuracy is only 0.605--0.608 on the calibration embeddings. We therefore report CnC-Frozen here as a measured failure of this budget-aware frozen-feature adapter, not as evidence about the original end-to-end CnC method or as a replacement for the stronger single configuration in Table~\ref{tab:classification}.
 
 \begin{table*}[t]
 \centering
 \caption{Waterbirds concept-erasure comparison on cached CLIP features. LEACE/INLP use attribute labels to learn a global erasure direction. LatentRisk-VLM uses task labels and failure signals instead. Attribute-probe accuracy is measured after editing; TODO means that the corresponding probe was not defined by the LatentRisk artifact rather than filled with an assumed value.}
 \label{tab:concept-erasure}
-\scriptsize
-\resizebox{\textwidth}{!}{\input{tables/concept_erasure_table}}
+\small
+\setlength{\tabcolsep}{4.0pt}
+\input{tables/concept_erasure_table}
 \end{table*}
 
 Table~\ref{tab:concept-erasure} shows that supervised concept erasure and failure-derived risk editing are not the same operation in this setting. LEACE leaves Waterbirds WGA unchanged at 33.6 in the global feature-space erasure, while INLP reduces attribute probe accuracy from 94.9 to 70.6 and improves WGA to 43.1. The oracle mean-difference direction, which directly uses the annotated background attribute, reaches 47.7 WGA. LatentRisk-VLM reaches 64.1 WGA without attribute labels, indicating that the useful failure-derived edit is not simply identical to removing the globally most attribute-predictive direction. The direction-alignment file reports normalized Frobenius overlaps of 0.0008 and 0.0120 for the two classes, so the measured case falls into the low-alignment regime: LatentRisk-VLM captures failure factors beyond the named background attribute, or captures them in a class-conditional form not matched by global erasure.

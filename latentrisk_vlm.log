@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  22 JUL 2026 13:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  22 JUL 2026 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -803,23 +803,20 @@ e 48.
 
 (./tables/attribute_budget_wga_table.tex) [6{/public_hw/home/cit_chaomengchen/t
 exlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc} <../figures/attribute_budge
-t_wga.pdf>] (./tables/concept_erasure_table.tex)
+t_wga.pdf>] (./tables/concept_erasure_table.tex) [7]
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 9.0pt on input line 113.
- [7])
-(./sections/8_low_cost_extension.tex [8] [9]
-Underfull \vbox (badness 4647) has occurred while \output is active []
+(Font)              scaled to size 9.0pt on input line 117.
+ [8])
+(./sections/8_low_cost_extension.tex [9]
+Underfull \vbox (badness 1377) has occurred while \output is active []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10]
 (./tables/adaptation_cost_compact_table.tex)
-Underfull \hbox (badness 1152) in paragraph at lines 109--110
+Underfull \hbox (badness 1152) in paragraph at lines 110--111
 \T1/ntxtlf/m/n/10 The ex-ten-sion also il-lus-trates the cost pro-file of the
  []
 
-) (./sections/6_discussion_and_limitations.tex [11]
+[10]) (./sections/6_discussion_and_limitations.tex
 Underfull \hbox (badness 4108) in paragraph at lines 15--16
  \T1/ntxtlf/b/n/10 Ex-per-i-men-tal lim-i-ta-tions. \T1/ntxtlf/m/n/10 The added
  SigLIP runs
@@ -830,9 +827,7 @@ Underfull \hbox (badness 1383) in paragraph at lines 15--16
 \T1/ntxtlf/m/n/10 broaden the back-bone ev-i-dence but do not es-tab-lish
  []
 
-) (./sections/7_conclusion.tex) (./latentrisk_vlm.bbl [12] [13]) [14
-
-]
+[11]) (./sections/7_conclusion.tex) (./latentrisk_vlm.bbl [12]) [13]
 (./latentrisk_vlm.aux)
  ***********
 LaTeX2e <2026-06-01>
@@ -842,7 +837,7 @@ L3 programming layer <2020/03/25>
 Here is how much of TeX's memory you used:
  17712 strings out of 467168
  355423 string characters out of 5397830
- 761650 words of memory out of 5000000
+ 756650 words of memory out of 5000000
  46609 multiletter control sequences out of 15000+600000
  680326 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -869,10 +864,10 @@ texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></public_hw/home/cit_
 chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></public
 _hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmr
 i.pfb>
-Output written on latentrisk_vlm.pdf (14 pages, 1833792 bytes).
+Output written on latentrisk_vlm.pdf (13 pages, 1833503 bytes).
 PDF statistics:
- 204 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 201 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

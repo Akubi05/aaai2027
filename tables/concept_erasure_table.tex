@@ -1,12 +1,12 @@
 \begin{tabular}{llllll}
 \toprule
-Method & Direction source & Attr. labels & WGA & Avg. & Attr. probe after \\
+Method & Dir. & Attr. labels & WGA & Avg. & Attr. probe after \\
 \midrule
 Frozen CLIP & none & 0 & 33.6 $\pm$ 0.0 & 83.7 $\pm$ 0.0 & 94.9 $\pm$ 0.0 \\
-LEACE & closed-form attribute-predictive linear subspace & 1199 & 33.6 $\pm$ 0.0 & 83.7 $\pm$ 0.0 & 94.9 $\pm$ 0.0 \\
-INLP & iterative linear probes for attribute predictability & 1199 & 43.1 $\pm$ 0.0 & 85.5 $\pm$ 0.0 & 70.6 $\pm$ 0.0 \\
-LatentVLM & failure-derived latent risk direction & 0 & 64.1 $\pm$ 0.0 & 79.9 $\pm$ 0.0 & TODO \\
-Random direction & random orthonormal direction sanity check & 0 & 33.4 $\pm$ 0.9 & 83.9 $\pm$ 0.2 & 94.9 $\pm$ 0.0 \\
-Oracle mean-difference & oracle attribute mean-difference direction & 1199 & 47.7 $\pm$ 0.0 & 83.8 $\pm$ 0.0 & 53.8 $\pm$ 0.0 \\
+LEACE & LEACE eraser & 1199 & 33.6 $\pm$ 0.0 & 83.7 $\pm$ 0.0 & 94.9 $\pm$ 0.0 \\
+INLP & INLP probes & 1199 & 43.1 $\pm$ 0.0 & 85.5 $\pm$ 0.0 & 70.6 $\pm$ 0.0 \\
+LatentVLM & failure risk & 0 & 64.1 $\pm$ 0.0 & 79.9 $\pm$ 0.0 & TODO \\
+Random direction & random dir. & 0 & 33.4 $\pm$ 0.9 & 83.9 $\pm$ 0.2 & 94.9 $\pm$ 0.0 \\
+Oracle mean-difference & oracle attr. mean & 1199 & 47.7 $\pm$ 0.0 & 83.8 $\pm$ 0.0 & 53.8 $\pm$ 0.0 \\
 \bottomrule
 \end{tabular}
