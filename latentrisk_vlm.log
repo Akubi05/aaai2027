@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  21 JUL 2026 17:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.7.19)  22 JUL 2026 13:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -773,37 +773,64 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
 (/public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/tex/latex/amsfonts/um
 sb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<figures/picture.png, id=13, 1496.59125pt x 1058.95625pt>
+) [2]
+<figures/picture.png, id=23, 1496.59125pt x 1058.95625pt>
 File: figures/picture.png Graphic file (type png)
 <use figures/picture.png>
 Package pdftex.def Info: figures/picture.png  used on input line 48.
 (pdftex.def)             Requested size: 505.89pt x 357.95593pt.
- [2]
-Underfull \vbox (badness 6510) has occurred while \output is active []
+ [3] [4 <./figures/picture.png (PNG copy)>])
+(./sections/4_experimental_protocol.tex [5]
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 24
+.
 
- [3 <./figures/picture.png (PNG copy)>]) (./sections/4_experimental_protocol.te
-x
-Underfull \hbox (badness 1152) in paragraph at lines 3--4
- \T1/ntxtlf/b/n/10 Back-bone and re-port-ing. \T1/ntxtlf/m/n/10 All ex-per-i-me
-nts use 768-
- []
-
-[4]) (./sections/5_measured_results_and_analysis.tex
+(/public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/tex/latex/psnfss/t1pc
+r.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)) (./sections/5_measured_results_and_analysis.tex
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 7.0pt on input line 7.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 7.0pt on input line 36.
+(Font)              scaled to size 7.0pt on input line 38.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/sc' will be
-(Font)              scaled to size 7.0pt on input line 36.
+(Font)              scaled to size 7.0pt on input line 38.
+<../figures/attribute_budget_wga.pdf, id=36, 448.07399pt x 260.17201pt>
+File: ../figures/attribute_budget_wga.pdf Graphic file (type pdf)
+<use ../figures/attribute_budget_wga.pdf>
+Package pdftex.def Info: ../figures/attribute_budget_wga.pdf  used on input lin
+e 48.
+(pdftex.def)             Requested size: 239.39438pt x 139.00604pt.
+
+(./tables/attribute_budget_wga_table.tex) [6{/public_hw/home/cit_chaomengchen/t
+exlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc} <../figures/attribute_budge
+t_wga.pdf>] (./tables/concept_erasure_table.tex)
+LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
+(Font)              scaled to size 9.0pt on input line 113.
+ [7])
+(./sections/8_low_cost_extension.tex [8] [9]
+Underfull \vbox (badness 4647) has occurred while \output is active []
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 9.0pt on input line 55.
-)
-(./sections/6_discussion_and_limitations.tex [5] [6])
-(./sections/7_conclusion.tex) (./latentrisk_vlm.bbl [7]) [8
+ [10]
+(./tables/adaptation_cost_compact_table.tex)
+Underfull \hbox (badness 1152) in paragraph at lines 109--110
+\T1/ntxtlf/m/n/10 The ex-ten-sion also il-lus-trates the cost pro-file of the
+ []
+
+) (./sections/6_discussion_and_limitations.tex [11]
+Underfull \hbox (badness 4108) in paragraph at lines 15--16
+ \T1/ntxtlf/b/n/10 Ex-per-i-men-tal lim-i-ta-tions. \T1/ntxtlf/m/n/10 The added
+ SigLIP runs
+ []
+
+
+Underfull \hbox (badness 1383) in paragraph at lines 15--16
+\T1/ntxtlf/m/n/10 broaden the back-bone ev-i-dence but do not es-tab-lish
+ []
+
+) (./sections/7_conclusion.tex) (./latentrisk_vlm.bbl [12] [13]) [14
 
 ]
 (./latentrisk_vlm.aux)
@@ -813,13 +840,13 @@ L3 programming layer <2020/03/25>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 17609 strings out of 467168
- 352621 string characters out of 5397830
- 753056 words of memory out of 5000000
- 46525 multiletter control sequences out of 15000+600000
- 679705 words of font info for 77 fonts, out of 8000000 for 9000
+ 17712 strings out of 467168
+ 355423 string characters out of 5397830
+ 761650 words of memory out of 5000000
+ 46609 multiletter control sequences out of 15000+600000
+ 680326 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,10n,117p,1681b,362s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,14n,117p,1898b,362s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmex10.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmmi10.pfb></public_hw/home/cit_chaomengchen/t
@@ -831,18 +858,21 @@ ist/fonts/type1/public/amsfonts/cm/cmr10.pfb></public_hw/home/cit_chaomengchen/
 texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></public_hw/hom
 e/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
 pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></public_hw/home/cit_chaomengchen/
-texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></public_hw/ho
-me/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/symbols
-/msbm10.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/typ
-e1/public/newtx/ztmb.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-d
-ist/fonts/type1/public/newtx/ztmr.pfb></public_hw/home/cit_chaomengchen/texlive
-/2026/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on latentrisk_vlm.pdf (8 pages, 1768147 bytes).
+c/amsfonts/cm/cmr9.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></public_hw/home/cit_chaomengchen/t
+exlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></public_hw/hom
+e/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9
+.pfb></public_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb></public_hw/home/cit_chaomengchen/texlive/2026/t
+exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></public_hw/home/cit_chaomengchen/
+texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></public_hw/home/cit_
+chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></public
+_hw/home/cit_chaomengchen/texlive/2026/texmf-dist/fonts/type1/public/newtx/ztmr
+i.pfb>
+Output written on latentrisk_vlm.pdf (14 pages, 1833792 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 72 compressed objects within 1 object stream
+ 204 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 23 words of extra memory for PDF output out of 10000 (max. 10000000)
 

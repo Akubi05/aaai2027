@@ -1,4 +1,4 @@
-\begin{thebibliography}{23}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 
 \bibitem[{Agarwal et~al.(2021)Agarwal, Krueger, Clark, Radford, Kim, and
@@ -8,6 +8,14 @@ Agarwal, S.; Krueger, G.; Clark, J.; Radford, A.; Kim, J.~W.; and Brundage, M.
 \newblock Evaluating CLIP: Towards Characterization of Broader Capabilities and
   Downstream Implications.
 \newblock \emph{arXiv preprint arXiv:2108.02818}.
+
+\bibitem[{Belrose et~al.(2023)Belrose, Schneider-Joseph, Ravfogel, Cotterell,
+  Raff, and Biderman}]{belrose2023leace}
+Belrose, N.; Schneider-Joseph, D.; Ravfogel, S.; Cotterell, R.; Raff, E.; and
+  Biderman, S. 2023.
+\newblock {LEACE}: Perfect Linear Concept Erasure in Closed Form.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36.
 
 \bibitem[{Berg et~al.(2022)Berg, Hall, Bhalgat, Kirk, Shtedritski, and
   Bain}]{berg2022prompt}
@@ -59,6 +67,13 @@ Hirota, Y.; Chen, M.-H.; Wang, C.-Y.; Nakashima, Y.; Wang, Y.-C.~F.; and
   CLIP.
 \newblock In \emph{International Conference on Learning Representations}.
 
+\bibitem[{Hudson and Manning(2019)}]{hudson2019gqa}
+Hudson, D.~A.; and Manning, C.~D. 2019.
+\newblock {GQA}: A New Dataset for Real-World Visual Reasoning and
+  Compositional Question Answering.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, 6700--6709.
+
 \bibitem[{Jung, Jang, and Wang(2024)}]{jung2024unified}
 Jung, H.; Jang, T.; and Wang, X. 2024.
 \newblock A Unified Debiasing Approach for Vision-Language Models across
@@ -82,6 +97,22 @@ Karpathy, A.; and Fei-Fei, L. 2015.
 Kirichenko, P.; Izmailov, P.; and Wilson, A.~G. 2023.
 \newblock Last Layer Re-Training Is Sufficient for Robustness to Spurious
   Correlations.
+\newblock In \emph{International Conference on Learning Representations}.
+
+\bibitem[{Krishna et~al.(2017)Krishna, Zhu, Groth, Johnson, Hata, Kravitz,
+  Chen, Kalantidis, Li, Shamma, Bernstein, and
+  Fei-Fei}]{krishna2017visualgenome}
+Krishna, R.; Zhu, Y.; Groth, O.; Johnson, J.; Hata, K.; Kravitz, J.; Chen, S.;
+  Kalantidis, Y.; Li, L.-J.; Shamma, D.~A.; Bernstein, M.~S.; and Fei-Fei, L.
+  2017.
+\newblock Visual Genome: Connecting Language and Vision Using Crowdsourced
+  Dense Image Annotations.
+\newblock \emph{International Journal of Computer Vision}, 123(1): 32--73.
+
+\bibitem[{Liang and Zou(2022)}]{liang2022metashift}
+Liang, W.; and Zou, J. 2022.
+\newblock {MetaShift}: A Dataset of Datasets for Evaluating Contextual
+  Distribution Shifts and Training Conflicts.
 \newblock In \emph{International Conference on Learning Representations}.
 
 \bibitem[{Liu et~al.(2021)Liu, Haghgoo, Chen, Raghunathan, Koh, Sagawa, Liang,
@@ -141,6 +172,12 @@ Young, P.; Lai, A.; Hodosh, M.; and Hockenmaier, J. 2014.
   for Semantic Inference over Event Descriptions.
 \newblock \emph{Transactions of the Association for Computational Linguistics},
   2: 67--78.
+
+\bibitem[{Zhai et~al.(2023)Zhai, Mustafa, Kolesnikov, and
+  Beyer}]{zhai2023sigmoid}
+Zhai, X.; Mustafa, B.; Kolesnikov, A.; and Beyer, L. 2023.
+\newblock Sigmoid Loss for Language Image Pre-Training.
+\newblock \emph{arXiv preprint arXiv:2303.15343}.
 
 \bibitem[{Zhang et~al.(2022)Zhang, Sohoni, Zhang, Finn, and
   R{\'e}}]{zhang2022correct}

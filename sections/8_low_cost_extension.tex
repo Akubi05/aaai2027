@@ -1,0 +1,111 @@
+\subsection{Backbone Transfer}
+
+We next ask whether the Waterbirds--CelebA contrast depends on the CLIP ViT-L/14 backbone. We repeat only the low-cost pieces of the experiment with frozen SigLIP Base Patch16/224 \citep{zhai2023sigmoid}: frozen zero-shot classification, rank-1 editing, rank-4 editing with the group-free worst-class selector, and a rank-4 validation-WGA oracle used only as a diagnostic upper bound. The encoders remain frozen, all image and text embeddings are normalized before editing, and WGA gains are computed relative to the frozen model with the same backbone.
+
+\begin{table*}[t]
+\centering
+\caption{Backbone transfer results. WGA, Avg., Gap, and WGA gain are percentage points. Alignment and enrichment are calibration diagnostics: alignment is the post-hoc absolute cosine similarity between the risk direction and the group-defined spurious direction, while enrichment is the top-risk minority share divided by the calibration minority base rate. Dashes denote quantities that are not defined for the frozen row. Oracle rows use validation group labels only for model selection and are diagnostic upper bounds, not group-free results.}
+\label{tab:backbone-transfer}
+\scriptsize
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllrrrrrrr@{}}
+\toprule
+Backbone & Dataset & Method & Selector & WGA & Avg. & Gap & Align. & Enrich. & WGA gain \\
+\midrule
+CLIP & Waterbirds & Frozen & none & 33.6 & 83.7 & 50.1 & -- & -- & 0.0 \\
+CLIP & Waterbirds & rank 1 & reported & 60.5 & 78.4 & 17.9 & 0.420 & 1.38 & +26.9 \\
+SigLIP & Waterbirds & Frozen & none & 8.1 & 27.3 & 19.2 & -- & -- & 0.0 \\
+SigLIP & Waterbirds & rank 1 & task accuracy & 0.2 & 75.9 & 75.7 & 0.499 & 1.74 & -7.9 \\
+SigLIP & Waterbirds & rank 4 & worst-class & 22.0 & 44.9 & 22.9 & 0.366 & 0.35 & +14.0 \\
+SigLIP & Waterbirds & rank 4 oracle & validation WGA & 25.9 & 42.7 & 16.9 & 0.366 & 0.35 & +17.8 \\
+\midrule
+CLIP & CelebA & Frozen & none & 71.5 & 78.2 & 6.7 & -- & -- & 0.0 \\
+CLIP & CelebA & rank 1 & reported & 54.4 & 91.7 & 37.3 & 0.080 & 0.94 & -17.1 \\
+SigLIP & CelebA & Frozen & none & 6.0 & 85.1 & 79.1 & -- & -- & 0.0 \\
+SigLIP & CelebA & rank 1 & task accuracy & 0.0 & 86.7 & 86.7 & 0.057 & 1.15 & -6.0 \\
+SigLIP & CelebA & rank 4 & worst-class & 55.0 & 56.2 & 1.2 & 0.057 & 1.15 & +49.0 \\
+SigLIP & CelebA & rank 4 oracle & validation WGA & 55.0 & 56.2 & 1.2 & 0.057 & 1.15 & +49.0 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+Table~\ref{tab:backbone-transfer} gives a deliberately mixed transfer result. The qualitative claim that task-accuracy selection is unsafe transfers: on both Waterbirds and CelebA, SigLIP rank-1 editing increases or preserves average accuracy while driving WGA below the frozen SigLIP baseline. On Waterbirds, the rank-1 risk direction is highly aligned with the place direction and the high-risk set is strongly minority-enriched, yet the selected candidate catastrophically shifts predictions toward the wrong group. Rank-4 worst-class selection partially corrects this, improving WGA from 8.1 to 22.0, and the validation-WGA oracle raises it only to 25.9. Thus, with SigLIP the diagnostic still identifies group-relevant failure structure, but candidate selection and semantic preservation become the limiting factors.
+
+CelebA shows a different transfer pattern. The SigLIP frozen classifier has high average accuracy but extremely low Blond-Hair WGA, making the baseline heavily group-skewed. Rank-1 task-accuracy selection again fails, reaching 0.0 WGA. Rank-4 worst-class selection raises WGA to 55.0, but at a large average-accuracy cost. The alignment diagnostic remains low (0.057), matching the CLIP conclusion that the failure-derived risk direction is not a reliable Male-direction surrogate. The positive rank-4 WGA gain should therefore be read as a correction of a severe frozen-SigLIP operating point, not as evidence that risk directions recover demographic attributes.
+
+\begin{table}[t]
+\centering
+\caption{Estimator control on SigLIP rank-1 runs. Both estimators use task labels only and task-accuracy selection. WGA and Avg. are percentages.}
+\label{tab:siglip-estimator-control}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}llrrr@{}}
+\toprule
+Dataset & Estimator & WGA & Avg. & WGA gain \\
+\midrule
+Waterbirds & mean contrast & 0.2 & 75.9 & -7.9 \\
+Waterbirds & logistic probe & 0.2 & 75.9 & -7.9 \\
+CelebA & mean contrast & 0.0 & 86.7 & -6.0 \\
+CelebA & logistic probe & 0.0 & 86.7 & -6.0 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+Table~\ref{tab:siglip-estimator-control} controls the rank-1 estimator choice. In these SigLIP runs, mean contrast and a one-step logistic probe select nearly identical task-accuracy operating points and produce the same WGA failures. The CLIP Waterbirds--CelebA contrast is therefore not explained solely by using mean contrast on one dataset and a probe on the other; the downstream selector and backbone-specific zero-shot geometry matter.
+
+\subsection{Predicting Editing Outcomes on a New Shift}
+
+To test the diagnostic protocol on a third setting, we construct a MetaShift-style cat-versus-dog shift using GQA scene graphs \citep{hudson2019gqa} linked to Visual Genome images \citep{krishna2017visualgenome}, following the spirit of MetaShift's contextual-shift evaluation \citep{liang2022metashift}. We use indoor/outdoor context as the group attribute. The metadata contains 1,944 images: 1,500 train, 300 validation/calibration, and 144 held-out test examples. The training split is spuriously correlated, with cat--indoor and dog--outdoor majority cells of 600 images and minority cells of 150 images; validation has 75 examples per cell and test has 36 examples per cell. The subset is deterministic and uses natural prompts ``a photo of a cat'' and ``a photo of a dog.'' Because the construction uses a keyword heuristic over scene-graph object/context names rather than the official MetaShift repository pipeline, we treat it as a MetaShift-style diagnostic shift rather than an exact benchmark reproduction.
+
+Before held-out test editing, we run calibration-only risk discovery and write a preregistered prediction file. The rule is intentionally transparent: a likely-success prediction requires high alignment, minority enrichment above one, minority recall above the configured floor, sufficient split-half stability, and nontrivial risk concentration. Low alignment or no minority enrichment predicts likely failure; conflicting evidence predicts uncertainty. The thresholds are fixed in the experiment configuration and the generated prediction records \texttt{test\_performance\_used=false}.
+
+\begin{table*}[t]
+\centering
+\caption{Diagnostic prediction and held-out outcome on the MetaShift-style cat/dog shift with frozen SigLIP. The prediction is generated before final test editing. WGA gain is relative to frozen SigLIP on the same test split.}
+\label{tab:metashift-prediction}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrll@{}}
+\toprule
+Dataset & Align. & Enrich. & Recall min. & Stability & Concentr. & Risk AUC & Observed gain & Prediction & Correct? \\
+\midrule
+MetaShift-style cat/dog & 0.226 & 1.33 & 0.267 & 0.267 & 0.093 & 0.635 & +5.6 & uncertain & n/a \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{Held-out MetaShift-style classification with frozen SigLIP. Values are percentages.}
+\label{tab:metashift-results}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrrr@{}}
+\toprule
+Method & WGA & Avg. & Gap & WGA gain \\
+\midrule
+Frozen SigLIP & 19.4 & 61.8 & 42.4 & 0.0 \\
+\textsc{LatentRisk-VLM} rank 4 & 25.0 & 58.3 & 33.3 & +5.6 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+Tables~\ref{tab:metashift-prediction} and~\ref{tab:metashift-results} close the diagnostic loop. The calibration diagnostics are mixed: alignment and enrichment pass the success-side thresholds, but split-half stability is low. The rule therefore predicts \emph{uncertain}, not likely success. On the held-out test split, rank-4 editing raises WGA from 19.4 to 25.0 while reducing average accuracy from 61.8 to 58.3. This positive but small WGA gain is compatible with the uncertainty prediction: the direction contains some group-relevant signal, but its instability and modest concentration warn against expecting a strong or reliable improvement. Per-group accuracy after editing is 72.2 for cat--indoor, 25.0 for cat--outdoor, 58.3 for dog--indoor, and 77.8 for dog--outdoor, so the remaining worst group is the cat--outdoor minority cell.
+
+\subsection{Computational Cost of Frozen-Feature Editing}
+
+\begin{table*}[t]
+\centering
+\caption{Post-feature adaptation cost on Waterbirds with cached frozen CLIP features. Feature extraction is excluded from adaptation time. Values are mean $\pm$ standard deviation over three seeds when available. CnC-Frozen is measured using the budget-aware cached-feature adapter from the attribute-label sweep, not copied from the single Table~\ref{tab:classification} configuration.}
+\label{tab:adaptation-cost}
+\scriptsize
+\resizebox{\textwidth}{!}{\input{tables/adaptation_cost_compact_table}}
+\end{table*}
+
+The extension also illustrates the cost profile of the method. Changing the backbone requires one frozen feature-extraction pass; all subsequent risk discovery, candidate scoring, diagnostics, and table generation operate on cached embeddings. The SigLIP embedding caches are 39 MB for Waterbirds, 218 MB for CelebA, and 2.5 MB for the MetaShift-style subset. Once cached, feature loading for method runs takes seconds: 2.9--3.0 seconds for Waterbirds, 16.3--16.4 seconds for CelebA, and 0.34 seconds for MetaShift. The editing/search/evaluation stage takes 9.4--9.5 seconds on Waterbirds, 95--101 seconds on CelebA, and 40.7 seconds on MetaShift under the reported grids. These timings support the intended low-cost interpretation for the proposed editor, but they should not be used to claim that CnC-Frozen or DFR-Frozen retrain a full vision backbone in our codebase. The revised efficiency analysis reports end-to-end feature extraction separately from post-feature adaptation and reads repeated-run wall-clock and memory measurements from run artifacts before any paper table is filled.
+
+Table~\ref{tab:adaptation-cost} makes the revised comparison explicit. DFR-Frozen is both more accurate and cheaper than LatentRisk-VLM in this Waterbirds feature-space refit, but it uses attribute labels and trains a classifier head. The budget-aware CnC-Frozen adapter optimizes many more feature-space parameters and takes 236.7 seconds on average in the CPU PyTorch rerun, yet remains at 33.6 WGA in this particular calibration-budget protocol. LEACE and INLP solve or fit only small feature-space erasers; in our runs their robustness gains are much smaller than DFR-Frozen and smaller than LatentRisk-VLM. The correct efficiency claim is therefore not that LatentRisk-VLM is universally cheaper or stronger than supervised frozen-feature baselines. It is that LatentRisk-VLM runs after feature extraction, updates no backbone or classifier head, and remains available when the attribute-label budget is zero.

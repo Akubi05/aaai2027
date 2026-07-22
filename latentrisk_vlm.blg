@@ -3,44 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: latentrisk_vlm.aux
 The style file: aaai2027.bst
 Database file #1: latentrisk_vlm.bib
-You've used 23 entries,
+You've used 28 entries,
             2840 wiz_defined-function locations,
-            687 strings with 9935 characters,
-and the built_in function-call counts, 18492 in all, are:
-= -- 1435
-> -- 1140
-< -- 0
-+ -- 419
-- -- 393
-* -- 1323
-:= -- 2960
-add.period$ -- 92
-call.type$ -- 23
-change.case$ -- 244
-chr.to.int$ -- 24
-cite$ -- 23
-duplicate$ -- 1216
-empty$ -- 1178
-format.name$ -- 461
-if$ -- 3643
+            710 strings with 10988 characters,
+and the built_in function-call counts, 22328 in all, are:
+= -- 1718
+> -- 1395
+< -- 1
++ -- 512
+- -- 481
+* -- 1612
+:= -- 3587
+add.period$ -- 112
+call.type$ -- 28
+change.case$ -- 296
+chr.to.int$ -- 29
+cite$ -- 28
+duplicate$ -- 1468
+empty$ -- 1411
+format.name$ -- 564
+if$ -- 4375
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 261
-newline$ -- 119
-num.names$ -- 92
-pop$ -- 653
+missing$ -- 320
+newline$ -- 144
+num.names$ -- 112
+pop$ -- 793
 preamble$ -- 1
-purify$ -- 206
+purify$ -- 252
 quote$ -- 0
-skip$ -- 635
+skip$ -- 754
 stack$ -- 0
-substring$ -- 692
-swap$ -- 632
-text.length$ -- 0
+substring$ -- 806
+swap$ -- 768
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 207
+type$ -- 252
 warning$ -- 0
-while$ -- 127
+while$ -- 152
 width$ -- 0
-write$ -- 291
+write$ -- 354

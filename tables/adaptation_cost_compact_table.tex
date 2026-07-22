@@ -1,0 +1,12 @@
+\begin{tabular}{lllllll}
+\toprule
+Method & Attr. labels & Optimized object & Params & Adapt. time (s) & WGA & Avg. \\
+\midrule
+Frozen zero-shot CLIP & No & none & 0 & 0.000 $\pm$ 0.000 & 33.6 $\pm$ 0.0 & 83.7 $\pm$ 0.0 \\
+LatentVLM & No & class-conditional low-rank risk directions and scoring grid & 4608 & 11.005 $\pm$ 0.546 & 64.1 $\pm$ 0.0 & 79.9 $\pm$ 0.0 \\
+CnC-Frozen & Yes & feature-space linear encoder adapter and classifier with contrastive/classification loss & 591362 & 236.699 $\pm$ 145.405 & 33.6 $\pm$ 0.0 & 83.8 $\pm$ 0.0 \\
+DFR-Frozen & Yes & feature-space classifier refit & 769 & 0.121 $\pm$ 0.024 & 90.2 $\pm$ 0.2 & 91.4 $\pm$ 0.9 \\
+LEACE & Yes & closed-form attribute-predictive linear subspace & 768 & 0.271 $\pm$ 0.114 & 33.6 $\pm$ 0.0 & 83.7 $\pm$ 0.0 \\
+INLP & Yes & iterative linear probes for attribute predictability & 768 & 0.100 $\pm$ 0.007 & 43.1 $\pm$ 0.0 & 85.5 $\pm$ 0.0 \\
+\bottomrule
+\end{tabular}

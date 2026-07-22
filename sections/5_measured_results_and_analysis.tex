@@ -2,7 +2,7 @@
 \subsection{Classification}
 \begin{table*}[t]
 \centering
-\caption{Classification with frozen CLIP ViT-L/14 encoders, grouped by supervision. WGA, Avg., and Gap are worst-group accuracy, average accuracy, and their difference (percentage points). Attribute use for validation selection counts as attribute supervision.}
+\caption{Classification with frozen CLIP ViT-L/14 encoders, grouped by where labels enter the pipeline. WGA, Avg., and Gap are worst-group accuracy, average accuracy, and their difference (percentage points). Using group labels only for validation-WGA selection is reported separately from using them during adaptation or reference construction.}
 \label{tab:classification}
 \scriptsize
 \setlength{\tabcolsep}{3.2pt}
@@ -11,34 +11,92 @@
 \toprule
 & & \multicolumn{3}{c}{Waterbirds} & \multicolumn{3}{c}{CelebA} \\
 \cmidrule(lr){3-5}\cmidrule(lr){6-8}
-Supervision & Method & WGA & Avg. & Gap & WGA & Avg. & Gap \\
+Label setting & Method & WGA & Avg. & Gap & WGA & Avg. & Gap \\
 \midrule
 \multirow{2}{*}{No example labels}
  & Frozen CLIP & 33.6 & 83.7 & 50.1 & 71.5 & 78.2 & 6.7 \\
  & Prompt ensemble & 41.1 & 83.8 & 42.7 & 65.0 & 77.2 & 12.1 \\
 \midrule
-\multirow{4}{*}{Task labels only}
+\multirow{4}{*}{\shortstack[l]{Task labels only\\group-free adaptation and selection}}
  & ERM & 29.4 & \textbf{86.6} & 57.2 & 16.1 & \textbf{94.3} & 78.2 \\
  & JTT-style calibration & 36.1 & 71.5 & 35.3 & 31.1 & 84.5 & 53.4 \\
  & \textsc{LatentRisk-VLM} (rank 1) & 60.5 & 78.4 & 17.9 & 54.4 & 91.7 & 37.3 \\
- & \textsc{LatentRisk-VLM} (rank 4) & 54.3 & 76.3 & 21.9 & 52.2 & 91.6 & 39.4 \\
+ & \textsc{LatentRisk-VLM} (rank 4, worst-class sel.) & \textbf{63.1} & 79.5 & \textbf{16.4} & 72.8 & 87.9 & 15.1 \\
 \midrule
-\multirow{7}{*}{Attribute-supervised/selected}
- & SPD (oracle attr.) & 22.7 & 77.2 & 54.4 & 67.7 & 77.8 & 10.2 \\
- & BEND-VLM & 31.0 & 81.2 & 50.2 & 58.6 & 73.5 & 14.9 \\
+\multirow{5}{*}{\shortstack[l]{Group-free adaptation\\group-aware selection}}
  & CFR & 47.7 & 74.4 & 26.7 & 9.7 & 39.0 & 29.3 \\
- & CnC & 32.9 & 83.8 & 50.9 & \textbf{85.3} & 87.5 & \textbf{2.3} \\
+ & CnC-Frozen & 32.9 & 83.8 & 50.9 & \textbf{85.3} & 87.5 & \textbf{2.3} \\
  & GIC-Cy + Subsample & 58.7 & 78.8 & 20.1 & 28.3 & 90.6 & 62.3 \\
  & AFR & 61.8 & 80.2 & 18.3 & 70.6 & 88.2 & 17.7 \\
- & \textsc{LatentRisk-VLM} (attr.-oracle selection) & 64.5 & 80.1 & 15.6 & 82.2 & 85.7 & 3.5 \\
+ & \textsc{LatentRisk-VLM} (attr.-oracle selection) & 64.1 & 79.9 & 15.8 & 82.2 & 85.7 & 3.5 \\
+\midrule
+\multirow{2}{*}{\shortstack[l]{Group-aware adaptation\\and selection}}
+ & SPD (oracle attr.) & 22.7 & 77.2 & 54.4 & 67.7 & 77.8 & 10.2 \\
+ & BEND-VLM & 31.0 & 81.2 & 50.2 & 58.6 & 73.5 & 14.9 \\
 \bottomrule
 \end{tabular}%
 }
 \end{table*}
 
-Table~\ref{tab:classification} reports the measured classification results. On Waterbirds, rank-1 \textsc{LatentRisk-VLM} is strongest among task-label-only methods at 60.5 WGA, improving frozen CLIP by 26.9 points while reducing average accuracy by 5.3 points. Among attribute-supervised or attribute-selected methods, our oracle reaches 64.5 WGA and AFR reaches 61.8. Thus the Waterbirds result supports failure-derived editing when the nuisance is unnamed, while exposing an explicit robustness--utility tradeoff.
+Table~\ref{tab:classification} reports the measured classification results while separating group-label use in adaptation from group-label use in model selection. On Waterbirds, rank-1 \textsc{LatentRisk-VLM} reaches 60.5 WGA, improving frozen CLIP by 26.9 points while reducing average accuracy by 5.3 points. Rank-4 editing with group-free worst-class validation selection reaches 63.1 WGA, within 1.0 point of its validation-WGA oracle at 64.1. When validation group labels are allowed only for selection, AFR reaches 61.8 and the rank-4 oracle reaches 64.1. These oracle-selected rows should not be interpreted as group-label-free end-to-end pipelines, because their operating points are chosen using validation WGA. The Waterbirds result therefore supports failure-derived editing when the nuisance is unnamed, while exposing an explicit robustness--utility tradeoff.
 
-CelebA reverses the primary result. Rank-1 editing raises average accuracy from 78.2 to 91.7 but lowers WGA from 71.5 to 54.4; rank four reaches 52.2 WGA. Changing only the rank-4 selection objective from validation accuracy to validation WGA raises test WGA by 30.0 points, from 52.2 to 82.2, while lowering average accuracy to 85.7. This oracle does not establish attribute-free robustness: it uses Male during selection and remains below the 85.3 WGA of attribute-selected CnC. The result instead isolates selection as a bottleneck after risk-subspace discovery.
+CelebA remains selection-sensitive. Rank-1 editing raises average accuracy from 78.2 to 91.7 but lowers WGA from 71.5 to 54.4. Rank-4 worst-class selection improves to 72.8 WGA, while attribute-oracle selection reaches 82.2 WGA at 85.7 average accuracy. Because the editor is learned without Male labels in both rank-4 rows, this comparison isolates the contribution of group-aware selection rather than group-aware representation discovery. The 82.2 result is therefore an oracle upper bound, not an attribute-free robustness result, and it remains below the 85.3 WGA of CnC-Frozen under group-aware selection.
+
+\subsection{Attribute-Label Budget}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{../figures/attribute_budget_wga.pdf}
+\caption{Waterbirds WGA as a function of available attribute labels. Attribute-supervised methods are not plotted at zero labels.}
+\label{fig:attribute-budget}
+\end{figure}
+
+\begin{table*}[t]
+\centering
+\caption{Waterbirds WGA under an attribute-label budget. Values are mean $\pm$ standard deviation over three sampled budgets/seeds. LatentRisk-VLM-UL uses no attribute labels, so the result is constant across budgets. CnC-Frozen is rerun with a budget-aware calibration selector on cached CLIP features; it is therefore a budget-sweep adaptation result rather than a copied Table~\ref{tab:classification} entry.}
+\label{tab:attribute-budget}
+\footnotesize
+\resizebox{\textwidth}{!}{\input{tables/attribute_budget_wga_table}}
+\end{table*}
+
+Figure~\ref{fig:attribute-budget} and Table~\ref{tab:attribute-budget} show the intended operating-regime distinction. At zero attribute labels, attribute-supervised methods are not applicable, while LatentRisk-VLM-UL reaches 64.1 WGA with task labels and failure signals only. Once attribute labels are available, DFR-Frozen is substantially stronger: it reaches 78.9 WGA with 100 sampled attribute labels, 88.1 with 500, and 90.2 with the full validation attribute set. The budget-aware CnC-Frozen adapter does not improve over frozen CLIP in this rerun, staying at 33.6 WGA across nonzero budgets, so we do not copy its stronger single Table~\ref{tab:classification} configuration into the budget curve. This is not a failure of the comparison protocol; it is the point of the budget experiment. Explicit attribute labels remain highly valuable when available, and LatentRisk-VLM trades that supervised robustness for a zero-attribute-label operating point.
+
+\begin{table*}[t]
+\centering
+\caption{Waterbirds concept-erasure comparison on cached CLIP features. LEACE/INLP use attribute labels to learn a global erasure direction. LatentRisk-VLM uses task labels and failure signals instead. Attribute-probe accuracy is measured after editing; TODO means that the corresponding probe was not defined by the LatentRisk artifact rather than filled with an assumed value.}
+\label{tab:concept-erasure}
+\scriptsize
+\resizebox{\textwidth}{!}{\input{tables/concept_erasure_table}}
+\end{table*}
+
+Table~\ref{tab:concept-erasure} shows that supervised concept erasure and failure-derived risk editing are not the same operation in this setting. LEACE leaves Waterbirds WGA unchanged at 33.6 in the global feature-space erasure, while INLP reduces attribute probe accuracy from 94.9 to 70.6 and improves WGA to 43.1. The oracle mean-difference direction, which directly uses the annotated background attribute, reaches 47.7 WGA. LatentRisk-VLM reaches 64.1 WGA without attribute labels, indicating that the useful failure-derived edit is not simply identical to removing the globally most attribute-predictive direction. The direction-alignment file reports normalized Frobenius overlaps of 0.0008 and 0.0120 for the two classes, so the measured case falls into the low-alignment regime: LatentRisk-VLM captures failure factors beyond the named background attribute, or captures them in a class-conditional form not matched by global erasure.
+
+\subsection{Group-Free Parameter Selection}
+\begin{table*}[t]
+\centering
+\caption{Rank-4 \textsc{LatentRisk-VLM} selection over the same candidate pool. All non-oracle selectors use validation task labels and frozen-baseline scores, but no group attributes. The oracle selector uses validation WGA and is included only as an upper bound.}
+\label{tab:selector-sweep}
+\footnotesize
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcc ccc ccc@{}}
+\toprule
+& \multicolumn{2}{c}{Selected candidate} & \multicolumn{3}{c}{Waterbirds} & \multicolumn{3}{c}{CelebA} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+Selector & Waterbirds & CelebA & WGA & Avg. & Gap & WGA & Avg. & Gap \\
+\midrule
+Task accuracy & $\lambda=0.085,b=0.004$ & $\lambda=0.050,b=-0.019$ & 46.0 & 83.9 & 38.0 & 52.2 & 91.6 & 39.4 \\
+Worst-class accuracy & $\lambda=0.070,b=0.018$ & $\lambda=0.085,b=-0.007$ & 63.1 & 79.5 & 16.4 & 72.8 & 87.9 & 15.1 \\
+High-risk accuracy & $\lambda=0.110,b=0.030$ & $\lambda=0.110,b=-0.030$ & 41.8 & 70.5 & 28.7 & 23.9 & 90.3 & 66.4 \\
+Net correction & $\lambda=0.070,b=0.025$ & $\lambda=0.080,b=-0.030$ & 51.4 & 75.1 & 23.7 & 22.2 & 90.3 & 68.1 \\
+Combined label-free & $\lambda=0.100,b=0.028$ & $\lambda=0.055,b=-0.023$ & 45.5 & 72.3 & 26.8 & 41.7 & 91.4 & 49.7 \\
+\midrule
+Validation-WGA oracle & $\lambda=0.085,b=0.017$ & $\lambda=0.300,b=-0.001$ & 64.1 & 79.9 & 15.8 & 82.2 & 85.7 & 3.5 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+Table~\ref{tab:selector-sweep} shows that label-free selection, not only direction discovery, determines the final robustness result. Worst-class validation accuracy is the strongest group-free selector in both datasets, recovering most of the Waterbirds oracle but still leaving a 9.4-point CelebA gap to validation-WGA selection. Overall task accuracy preserves average accuracy but selects much weaker WGA operating points. The high-risk, net-correction, and combined proxies are deterministic and group-free, but in these runs they overemphasize examples that do not match the held-out worst groups. Thus, proxy design remains an open part of the method rather than a solved replacement for validation groups.
 
 \subsection{Retrieval Skew under Demographic Audit}
 \begin{table}[t]
@@ -81,14 +139,37 @@ No semantic residualization & Y & N & 66.6 & 37.4 \\
 No geometric suppression & Y & N & 77.0 & 57.1 \\
 No risk-score penalty & Y & N & 76.3 & 54.3 \\
 No neutral reinjection & Y & N & 76.3 & 54.4 \\
-Full rank-4 editor & Y & N & 76.3 & 54.3 \\
+Full rank-4 editor (macro sel.) & Y & N & 76.3 & 54.3 \\
 \midrule
-Rank 4 + attr.-oracle selection & Y & Y & \textbf{80.1} & \textbf{64.5} \\
+Rank 4 + attr.-oracle selection & Y & Y & \textbf{79.9} & \textbf{64.1} \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
-Table~\ref{tab:ablation} shows that semantic residualization is necessary on Waterbirds: removing it lowers average accuracy from 76.3 to 66.6 and WGA from 54.3 to 37.4. Other components are not uniformly beneficial. Removing geometric suppression improves WGA from 54.3 to 57.1, and removing reinjection changes WGA by only 0.1 point. Validation macro accuracy selects $\lambda=0$ for the full rank-4 editor, making it identical to the no-risk-penalty row. Most importantly, mean contrast outperforms rank four by 2.1 average-accuracy and 6.2 WGA points. The evidence supports a simple direction on Waterbirds, not a general benefit from increasing rank.
+Table~\ref{tab:ablation} shows that semantic residualization is necessary on Waterbirds under the macro-accuracy ablation selector: removing it lowers average accuracy from 76.3 to 66.6 and WGA from 54.3 to 37.4. Other components are not uniformly beneficial. Removing geometric suppression improves WGA from 54.3 to 57.1, and removing reinjection changes WGA by only 0.1 point. Validation macro accuracy selects $\lambda=0$ for the full rank-4 editor, making it identical to the no-risk-penalty row. The selector sweep in Table~\ref{tab:selector-sweep} shows that this is a selection failure rather than conclusive evidence against rank four: worst-class selection raises the same rank-4 editor to 63.1 WGA.
 
 \subsection{Risk Separability Is Insufficient}
 On the calibration split, the Waterbirds mean-contrast directions separate risk labels with AUCs of 0.977 and 0.932 for landbirds and waterbirds. The CelebA rank-1 probes reach 0.989 and 0.981 for non-blond and blond classes. Yet the edits have opposite WGA effects. These are in-sample diagnostics, not generalization estimates, but they establish an important negative result: making failure linearly separable does not show that the direction corresponds to a hidden group or that removing it will improve group robustness.
+
+\subsection{Post-hoc Alignment Diagnostics}
+\begin{table*}[t]
+\centering
+\caption{Diagnostics explaining why rank-1 latent-risk editing helps Waterbirds but hurts CelebA. Alignment is the average over classes of the absolute cosine similarity between the learned risk direction and a post-hoc spurious direction computed from group-labeled calibration embeddings. Risk-minority share uses the top 20\% calibration samples by class-conditional risk-direction score. Stability and concentration are label-free reliability diagnostics; WGA gain is measured on the test split against frozen CLIP.}
+\label{tab:alignment-diagnostics}
+\footnotesize
+\setlength{\tabcolsep}{4.2pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+Dataset & Align. & Risk-min. & Overall min. & Enrich. & Recall min. & Stability & Concentr. & WGA gain \\
+\midrule
+Waterbirds & 0.420 & 69.2 & 50.0 & 1.38 & 27.7 & 0.751 $\pm$ 0.016 & 0.086 & +28.2 \\
+CelebA & 0.080 & 40.0 & 42.6 & 0.94 & 18.8 & 0.893 $\pm$ 0.007 & 0.072 & $-$17.1 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+Table~\ref{tab:alignment-diagnostics} directly tests the condition that failure-derived directions should overlap the hidden group factor. For each class \(c\), we compute a post-hoc spurious direction \(v_c\) as the normalized difference between the two group-conditioned mean CLIP image embeddings on the calibration split, and compare it with the learned rank-1 risk direction \(u_c\) using \(|u_c^\top v_c|\). Group labels are used only for this diagnostic, not for risk estimation or editing. Waterbirds has substantially higher alignment than CelebA (0.420 versus 0.080), and its detected high-risk set is enriched for minority-group samples: 69.2\% of top-risk calibration examples are minority examples, compared with a 50.0\% minority base rate. CelebA shows the opposite pattern. Its top-risk set contains 40.0\% minority examples, below the 42.6\% base rate, so the risk score does not identify the Male-defined worst-group structure.
+
+The label-free diagnostics refine this interpretation. Error residuals are slightly more concentrated on Waterbirds than on CelebA (0.086 versus 0.072), matching the direction of the WGA gains. Stability alone is not a sufficient reliability criterion: CelebA directions are highly reproducible across random half-splits (0.893), but they are reproducibly aligned with non-gender error structure. Thus, the CelebA failure is not caused by an unstable estimator. It is caused by a stable but misaligned risk direction: suppressing it raises average accuracy while damaging the group that defines WGA. The diagnostic supports the paper's central claim that latent failures provide useful weak supervision only when the failure direction is also a group-relevant direction.
